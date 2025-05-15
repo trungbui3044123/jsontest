@@ -1,0 +1,218 @@
+**`XMLHttpRequest`** là một đối tượng trong JavaScript dùng để gửi yêu cầu HTTP đến máy chủ. Nó có nhiều phương thức (methods) và thuộc tính (properties) giúp kiểm soát quá trình gửi và nhận dữ liệu.
+
+### **Các phương thức (`methods`) của `XMLHttpRequest`**
+1. **`open(method, url, async, user, password)`** - Mở một yêu cầu HTTP.  
+2. **`send(body)`** - Gửi yêu cầu đến máy chủ.  
+3. **`abort()`** - Hủy yêu cầu hiện tại.  
+4. **`setRequestHeader(header, value)`** - Đặt giá trị cho một header HTTP.  
+5. **`getResponseHeader(header)`** - Lấy giá trị của một header từ phản hồi.  
+6. **`getAllResponseHeaders()`** - Lấy tất cả các headers từ phản hồi.  
+7. **`overrideMimeType(mime)`** - Ghi đè loại MIME được trả về.  
+
+### **Các thuộc tính (`properties`) của `XMLHttpRequest`**
+1. **`readyState`** - Trạng thái của yêu cầu (`0-4`).  
+2. **`status`** - Mã trạng thái HTTP (`200, 404, 500,...`).  
+3. **`statusText`** - Mô tả trạng thái HTTP (`OK, Not Found,...`).  
+4. **`responseText`** - Nội dung phản hồi dạng văn bản.  
+5. **`responseXML`** - Nội dung phản hồi dạng XML.  
+6. **`responseType`** - Loại dữ liệu của phản hồi (`json, text, blob,...`).  
+7. **`onreadystatechange`** - Sự kiện thay đổi trạng thái yêu cầu.  
+8. **`timeout`** - Thời gian tối đa cho yêu cầu.  
+9. **`withCredentials`** - Cho phép gửi cookie cùng với request.  
+
+### **Ví dụ sử dụng `XMLHttpRequest`:**
+```js
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "https://api.example.com/data", true);
+xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log(xhttp.responseText);
+    }
+};
+xhttp.send();
+```
+
+Bạn có muốn tìm hiểu sâu hơn về một phương thức hoặc thuộc tính nào không? 🚀
+
+Rất hay! Mặc dù cả **HTML Form GET** và **AJAX GET với `XMLHttpRequest`** đều gửi yêu cầu HTTP **GET** đến máy chủ, nhưng chúng có sự khác biệt quan trọng trong cách hoạt động và tác dụng thực tế.
+
+---
+
+### **1. HTML Form GET**
+```html
+<form action="/getData" method="GET">
+    <input type="text" name="query">
+    <button type="submit">Gửi</button>
+</form>
+```
+📝 **Cách hoạt động**:
+- Khi người dùng nhập dữ liệu vào form và nhấn **Gửi**, trình duyệt tự động gửi một **yêu cầu GET** đến URL `/getData?query=...`.
+- **Trang web sẽ tải lại** với nội dung phản hồi từ máy chủ.
+- Dữ liệu sẽ hiển thị trên trang mới do máy chủ trả về.
+- Dữ liệu request sẽ hiển thị trên **thanh địa chỉ** (ví dụ: `https://example.com/getData?query=test`).
+
+📌 **Nhược điểm**:
+- Khi gửi request, **trang sẽ bị tải lại**.
+- Không thể xử lý dữ liệu **một cách linh hoạt** mà không cần load lại trang.
+
+---
+
+### **2. AJAX GET với `XMLHttpRequest`**
+```js
+const query = "test";
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "/getData?query=" + encodeURIComponent(query), true); // Gửi request GET
+xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log(xhttp.responseText); // Nhận dữ liệu mà không tải lại trang
+    }
+};
+xhttp.send();
+```
+📝 **Cách hoạt động**:
+- JavaScript gửi request **GET** đến máy chủ mà **không tải lại trang**.
+- Máy chủ xử lý và trả phản hồi (ví dụ: JSON, văn bản).
+- Dữ liệu nhận được có thể cập nhật ngay trên trang web (ví dụ: hiển thị kết quả tìm kiếm).
+
+📌 **Ưu điểm**:
+- **Trang không bị tải lại**, giúp trải nghiệm mượt mà hơn.
+- Dữ liệu nhận về có thể được **xử lý và hiển thị ngay trên trang**.
+- Có thể kết hợp với API để lấy dữ liệu động mà không làm gián đoạn trải nghiệm người dùng.
+
+---
+
+### **So sánh trực tiếp**
+| **Tiêu chí**           | **HTML Form GET**                        | **AJAX GET (`XMLHttpRequest`)**         |
+|------------------------|----------------------------------------|---------------------------------------|
+| **Cách gửi request**   | Trình duyệt tự động gửi khi form được submit | JavaScript gửi yêu cầu GET tự động |
+| **Có tải lại trang?**  | ❌ Có | ✅ Không |
+| **Hiển thị dữ liệu?**  | Máy chủ gửi trang mới chứa nội dung | Nhận dữ liệu từ server mà không thay đổi trang |
+| **Ứng dụng thực tế**   | Đăng nhập, tìm kiếm cơ bản | Tìm kiếm tức thì, tải dữ liệu động (API) |
+
+---
+
+### **Khi nào nên dùng mỗi cách?**
+✔ **Dùng HTML Form GET** khi cần **chuyển sang một trang mới**, ví dụ: tìm kiếm trên Google.  
+✔ **Dùng AJAX GET** khi muốn **tải dữ liệu động** mà không tải lại trang, ví dụ: tìm kiếm gợi ý.
+
+💡 **Ví dụ thực tế**:
+- **Google Search**: Khi bạn nhấn Enter, trang tải lại (**HTML Form GET**).
+- **Google Suggest**: Khi bạn nhập từ khóa, gợi ý xuất hiện mà không tải lại trang (**AJAX GET**).
+
+Bạn muốn thử một bài tập nhỏ với AJAX để hiểu sâu hơn không? 🚀😃
+
+
+Bạn có thể xử lý **GET request** trong Java bằng **Servlet**, và dữ liệu có thể được gửi từ **HTML Form** hoặc **AJAX**. Dưới đây là ví dụ đầy đủ:
+
+---
+
+### **1. Tạo Servlet để xử lý GET request**
+Trong Java EE, bạn dùng **HttpServlet** để nhận dữ liệu từ client.
+
+📌 **Ví dụ `GetDataServlet.java`**
+```java
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/getData")
+public class GetDataServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Lấy dữ liệu từ request GET
+        String query = request.getParameter("query");
+
+        // Tạo phản hồi
+        response.setContentType("text/plain");
+        response.getWriter().println("Bạn đã nhập: " + query);
+    }
+}
+```
+📝 **Giải thích:**
+- **`@WebServlet("/getData")`**: Xác định URL `/getData` mà servlet này xử lý.
+- **`request.getParameter("query")`**: Lấy giá trị `query` từ request.
+- **`response.getWriter().println(...)`**: Trả về phản hồi cho client.
+
+---
+
+### **2. Gửi GET từ HTML Form**
+Bạn có thể gửi yêu cầu GET bằng cách sử dụng **HTML Form**.
+
+📌 **Ví dụ `index.html`**
+```html
+<form action="/getData" method="GET">
+    <input type="text" name="query" placeholder="Nhập từ khóa">
+    <button type="submit">Gửi</button>
+</form>
+```
+📝 **Cách hoạt động**:
+- Khi nhấn **Gửi**, trình duyệt sẽ chuyển hướng đến **`/getData?query=...`**.
+- Servlet sẽ **nhận request**, xử lý, và trả phản hồi.
+
+---
+
+### **3. Gửi GET bằng AJAX (JavaScript)**
+Nếu bạn muốn nhận dữ liệu mà **không tải lại trang**, có thể dùng **AJAX (`XMLHttpRequest`)**.
+
+📌 **Ví dụ `script.js`**
+```js
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Ngăn form tải lại trang
+
+    const query = document.querySelector("input[name='query']").value;
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "/getData?query=" + encodeURIComponent(query), true);
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            document.getElementById("result").innerText = xhttp.responseText;
+        }
+    };
+
+    xhttp.send();
+});
+```
+📌 **Thêm vào `index.html`**
+```html
+<form id="myForm">
+    <input type="text" name="query" placeholder="Nhập từ khóa">
+    <button type="submit">Gửi AJAX</button>
+</form>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
+```
+📝 **Cách hoạt động**:
+- Khi nhấn **"Gửi AJAX"**, JavaScript sẽ gửi request **GET** đến `/getData`.
+- Máy chủ **phản hồi**, và kết quả sẽ **hiển thị ngay trên trang**.
+
+---
+
+### **So sánh**
+| **Phương thức** | **Cách hoạt động** | **Tác dụng** |
+|---------------|----------------|-------------|
+| **HTML Form GET** | Trình duyệt gửi request, tải lại trang | Dùng khi muốn hiển thị trang mới |
+| **AJAX GET** | JavaScript gửi request, không tải lại trang | Hiển thị dữ liệu động, mượt mà hơn |
+
+---
+
+💡 **Ứng dụng thực tế**
+- HTML Form GET: Tìm kiếm Google khi nhấn **Enter**.
+- AJAX GET: Gợi ý tìm kiếm trên Google khi đang nhập.
+
+Bạn có muốn thử mở rộng bài tập này với **Fetch API** không? 🚀😃
+
+
+XMLHttpRequest là object có sẵn ở browsers
+thường dùng để send request tới server open() và send()
+url là dchi 1 file trên server: Dùng để phản hồi / thực hiện action khi mà server response back
+fetch(): Hoat động tương tự xmlhttprequest cơ mà đơn giản hơn
+Về cơ chế:
+Browser JS, sẽ gửi request dạng get/post... tới 1 url chỉ định
+BE: xử lý sẵn cái file url trỏ tới đó sẽ làm cái việc gì( trả lại json, lưu vào db...)
+Browser nhận kết quả trả về đó const result= xhttp.responseText; ví dụ nếu be có trả về data thì dungf thuộc tính này. để hứng kqua trả về
+JS dùng kqua trả về làm việc cần làm.

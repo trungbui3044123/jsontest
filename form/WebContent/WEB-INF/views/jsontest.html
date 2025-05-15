@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getJSON() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                var result = xhttp.responseText; // tra ve json
+                var text = [];
+                var jsonObject = JSON.parse(result);// doi sang object
+                for (const i in jsonObject) {
+                    text.push(jsonObject[i]);
+                }
+
+                document.getElementById("result").innerHTML = text;
+                document.getElementById("result2").innerHTML = result;
+            }
+            xhttp.open("get", "https://cat-fact.herokuapp.com", true);
+            xhttp.send();
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="loadtext">
+        <button id="showtext" onclick="getJSON()">Show</button>
+    </div>
+    <div>
+        <p id="result"></p><br>
+        <p id="result2"></p><br>
+    </div>
+
+</body>
+
+</html>

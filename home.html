@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="test.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>He thong 1</h1>
+        <h2 class="screnTitle"> page home</h2>
+        <div class="userInfor">
+            <p class="user">
+                <span>12345</span>
+                <span>Trung bui</span>
+                <span>Mr</span>
+            </p>
+            <p class="edit">
+                <a href="#"> <img src="" alt="config" />
+                </a>
+            </p>
+            <div class="editcontainer" style="display: none;">
+                <p>
+                    <span>ID to chuc</span>
+                    <span>Ten to chuc</span>
+                </p>
+                <p>
+                    <span>To chuc users</span>
+                    <span>Ten user</span>
+                </p>
+                <p>
+                    <span>xxxxx</span>
+                    <span>xxxxx Trung bui</span>
+                </p>
+            </div>
+            <p class="logout">
+                <a href="#">Logout</a>
+            </p>
+        </div>
+
+    </header>
+    <article class="body">
+        <section class="content">
+            <section class="contentheader">
+                <H2>input form </H2>
+                <form class="form" action="" method="get">
+                    <div class="item name">
+                        <p class="label"><label for="fname">Input name:</label></p>
+                        <p class="valuename">
+                            <input type="text" maxlength="40" placeholder="your name" name="name" id="name">
+                        </p>
+                    </div>
+                    <div class="item date">
+                        <p class="date"><label for="fdate">Input name:</label></p>
+                        <p class="valuedate">
+                            <input type="date" maxlength="10" placeholder="Input date" name="date" id="date">
+                        </p>
+                    </div>
+                    <div class="item mail">
+                        <p class="mail"><label for="fmail">Input name:</label></p>
+                        <p class="valuemail">
+                            <input type="mail" maxlength="40" placeholder="Input mail" name="mail" id="mail">
+                        </p>
+                    </div>
+                    <div class="item cost">
+                        <p class="cost"><label for="fcost">Input price:</label></p>
+                        <p class="valuecost">
+                            <input type="number" maxlength="33" placeholder="Input price" name="cost" id="cost">
+                        </p>
+                    </div>
+                    <div class="item cost">
+                        <p class="submit"><input type="submit" value="search" onclick="checkform()"></p>
+                    </div>
+                </form>
+            </section>
+            <section class="contentbody">
+                <p>body area</p>
+            </section>
+            <section class="contentfooter">
+                <p>footer area</p>
+            </section>
+        </section>
+
+    </article>
+    <script src="jstest.js"></script>
+</body>
+
+</html>

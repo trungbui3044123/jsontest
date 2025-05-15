@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header>
+		<h1>Test form and table</h1>
+	</header>
+	<article class="body">
+		<section class="form area">
+		<form action="" method="get" name="form1">
+			<div>
+			Product name: <input type="text" name="prdname">
+			</div>
+		</form>
+
+		</section>
+		<section class="table area">
+			<div class="tablehead">
+			<h2>Table</h2>
+			</div>
+			<div>
+				<table id="table1">
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</section>
+	</article>
+</body>
+</html>

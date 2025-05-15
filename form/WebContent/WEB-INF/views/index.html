@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="/form/WebContent/WEB-INF/static/index.css">
+
+</head>
+
+<body>
+	<header>
+		<h1>Test form and table</h1>
+	</header>
+	<article class="body">
+		<section class="form area">
+			<form action="index.html" method="GET" name="form1" onsubmit="submit()">
+				<div>
+					Product name: <input type="text" name="prdname" id="prdname" maxlength="10">
+				</div>
+				<div>
+					Product cost: <input type="text" name="prdcost" id="prdcost">
+				</div>
+				<div>
+					Store: <select  id="store">
+						<option id="op1"> Akamaru</option>
+						<option id="op2"> AEON</option>
+						<option id="op3"> Compini</option>
+
+					</select>
+				</div>
+				<div>
+					<button id="btn" onclick=" return btnevent()">Add </button>
+				</div>
+				<input type="submit" value="send" >
+			</form>
+
+		</section>
+		<section class="table area">
+			<div class="tablehead">
+				<h2 onclick="this.innerHTML = Date();">Table</h2>
+			</div>
+			<div>
+				<table id="table1">
+					<tr>
+						<th>Product name: </th>
+						<th>Product cost: </th>
+						<th>Store: </th>
+					</tr>
+				</table>
+			</div>
+			<div class="btnsubmit">
+				<button id="Submit" onclick="submittable()">Submit</button>
+			</div>
+			<div >
+				<p id="showData"></p><br>
+				<p id="target"> </p>
+			</div>
+		</section>
+				<div id="loadtext">
+				<button id="showtext" onclick="showtext()">Show</button>
+			</div>
+	</article>
+	<script src="/form/WebContent/WEB-INF/static/index.js"></script>
+</body>
+
+</html>
