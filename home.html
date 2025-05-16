@@ -5,89 +5,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-    <link rel="stylesheet" href="test.css">
+    <title>Daily controller</title>
+    <link rel="stylesheet" href="/static/test.css">
+    <script src="/static/loadJson.js"></script>
 
 </head>
 
-<body>
-    <header>
-        <h1>He thong 1</h1>
-        <h2 class="screnTitle"> page home</h2>
-        <div class="userInfor">
-            <p class="user">
-                <span>12345</span>
-                <span>Trung bui</span>
-                <span>Mr</span>
-            </p>
-            <p class="edit">
-                <a href="#"> <img src="" alt="config" />
-                </a>
-            </p>
-            <div class="editcontainer" style="display: none;">
-                <p>
-                    <span>ID to chuc</span>
-                    <span>Ten to chuc</span>
-                </p>
-                <p>
-                    <span>To chuc users</span>
-                    <span>Ten user</span>
-                </p>
-                <p>
-                    <span>xxxxx</span>
-                    <span>xxxxx Trung bui</span>
-                </p>
-            </div>
-            <p class="logout">
-                <a href="#">Logout</a>
-            </p>
+<body onload="getAPI()">
+    <header class="headPage">
+        <div class="head1">
+            <h1 class="tooltip">Chi tiêu hàng ngày</h1>
         </div>
-
+        <div class="head2">
+            <h3>Trung Bùi</h3>
+            <p>Okayama</p>
+        </div>
+        <div class="head3">
+            <img src="/static/faceId.PNG" alt="myface" id="imgh">
+        </div>
     </header>
     <article class="body">
-        <section class="content">
-            <section class="contentheader">
-                <H2>input form </H2>
-                <form class="form" action="" method="get">
-                    <div class="item name">
-                        <p class="label"><label for="fname">Input name:</label></p>
-                        <p class="valuename">
-                            <input type="text" maxlength="40" placeholder="your name" name="name" id="name">
-                        </p>
-                    </div>
-                    <div class="item date">
-                        <p class="date"><label for="fdate">Input name:</label></p>
-                        <p class="valuedate">
-                            <input type="date" maxlength="10" placeholder="Input date" name="date" id="date">
-                        </p>
-                    </div>
-                    <div class="item mail">
-                        <p class="mail"><label for="fmail">Input name:</label></p>
-                        <p class="valuemail">
-                            <input type="mail" maxlength="40" placeholder="Input mail" name="mail" id="mail">
-                        </p>
-                    </div>
-                    <div class="item cost">
-                        <p class="cost"><label for="fcost">Input price:</label></p>
-                        <p class="valuecost">
-                            <input type="number" maxlength="33" placeholder="Input price" name="cost" id="cost">
-                        </p>
-                    </div>
-                    <div class="item cost">
-                        <p class="submit"><input type="submit" value="search" onclick="checkform()"></p>
-                    </div>
-                </form>
-            </section>
-            <section class="contentbody">
-                <p>body area</p>
-            </section>
-            <section class="contentfooter">
-                <p>footer area</p>
-            </section>
+        <section class="subhead">
+            <h3 id="today">today</h3>
+            <p id="yen_vnd">yen_usd</p>
+            <p id="yen_usd">yen_vnd</p>
         </section>
+        <section class="content">
 
+            <form action="" method="" name="formDaily" id="mainform">
+                <div class="formzone">
+                    <div class="labelzone">
+                        <div>購入商品 : </div>
+                        <div>値段 : </div>
+                        <div>購入日 : </div>
+                        <div>数量 :</div>
+                        <div>スーパー :</div>
+                        <div>単位 :</div>
+                        <div>メモ :</div>
+                        <div>費目 :</div>
+                        <div>評価レベル :</div>
+                    </div>
+                    <div class="inputzone">
+                        <div><input type="text" name="item" maxlength="20"></div>
+                        <div><input type="text" name="cost" maxlength="7"></div>
+                        <div><input type="date" name="date" min="2024-09-22" max="2100-01-01"></div>
+                        <div><input type="number" name="quantity" maxlength="7"></div>
+                        <div>
+                            <select name="store" id="store">
+                                <option value="1">マルカナ</option>
+                                <option value="2">コーナンPRO高柳店</option>
+                                <option value="3">2nd Street</option>
+                                <option value="4">ラ・ムーマート</option>
+                                <option value="5">イオンモール内のスーパー</option>
+                                <option value="6">松乃屋</option>
+                                <option value="7">コンビニ</option>
+                                <option value="8">その他</option>
+                            </select>
+                        </div>
+                        <div><input type="text" name="unit" maxlength="7"></div>
+                        <div> <textarea name="memo" id="memo" cols="30"></textarea></div>
+                        <div class="categoryzone">
+                            <div>
+                                <select name="category" id="category">
+                                    <option value="1">固定費</option>
+                                    <option value="2">食費</option>
+                                    <option value="3">その他生活費</option>
+                                    <option value="4">交際費</option>
+                                    <option value="5">美容費</option>
+                                    <option value="6">教育費</option>
+                                    <option value="7">雑費</option>
+                                    <option value="8">貯金</option>
+                                </select>
+                            </div>
+                            <div class="tooltip">***
+                                <p class="tooltiptext">"固定費"="住居費・水道光熱費・通信費・保険料"<br>
+                                    "食費"="外食費・食材購入費・酒代"<br>
+                                    "その他生活費"="食品以外の生活必需品・費用要否（掃除道具など）"<br>
+                                    "交際費"="飲み会・友達、顧客関係を深める費用"<br>
+                                    "美容費"="洋服購入・調髪"<br>
+                                    "教育費"="本購入・辞書使用費用"<br>
+                                    "雑費"="レシートで数えない税金・上記の費目以外の金額"<br>
+                                    "貯金"="家族に送金、日本で投資など"
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level">
+                            <select name="level" id="level">
+                                <option value="1">非常に良い</option>
+                                <option value="2">良い</option>
+                                <option value="3">普通</option>
+                                <option value="4">悪い</option>
+                                <option value="5">非常に悪い</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="addbtn">
+                <button id="addbtn">Add data</button>
+            </div>
+            </div>
+            <div class="tablezone">
+                <table id="tableMain">
+                    <tr>
+                        <th>購入商品</th>
+                        <th>値段</th>
+                        <th>購入日</th>
+                        <th>数量</th>
+                        <th>スーパー</th>
+                        <th>単位</th>
+                        <th>メモ</th>
+                        <th>費目</th>
+                        <th>評価レベル</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="submitzone">
+                <input type="submit" value="Submit" form="mainform" name="submitbtn">
+            </div>
+            <div class="summaryzone">
+                <div class="sum1">
+                    <p id="totaldaily">Tổng tiền tiêu hôm nay : </p>
+                    <p id="comparemax">Đánh giá : </p>
+                    <p id="budgetplan">Budget tiêu ngày mai : </p>
+                </div>
+                <div class="sum2">
+                    <p id="dailybudget">Budget ngày : <span>sss</span></p>
+                    <p id="monthlybudget">Budget tháng : </p>
+                    <p id="monthlyavai">Khả dụng tháng : </p>
+                </div>
+            </div>
+            <div class="txtbtn">
+                <button id="savetxt" onclick="test()">Save to file</button>
+            </div>
+        </section>
     </article>
-    <script src="jstest.js"></script>
+    <script src="/static/homebody.js"></script>
 </body>
 
 </html>

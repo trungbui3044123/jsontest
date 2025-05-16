@@ -147,3 +147,21 @@ function totaltoserver(){
 
     xhttp.send();
 };
+
+
+// var thì từ 2015 trở đi hạn chế dùng
+// const thì khai báo cho biến không đổi
+// let thì khai báo cho biến thay đổi, nhưng bị giới hạn trong scope {}
+
+//-> Trường hợp như này
+    // const query = document.querySelector("input[name='prdname']").value;
+    // const xhttp = new XMLHttpRequest();
+
+    // xhttp.open("GET", "index.html?prdname=" + encodeURIComponent(query), true); // G?i request GET
+    // xhttp.onreadystatechange = function() {
+    //     if (xhttp.readyState == 4 && xhttp.status == 200) {
+    //         console.log(xhttp.responseText); // Hi?n th? d? li?u nh?n ???c
+    //     }
+    // };
+
+// thì value lấy từ input vào là value biến đổi . thì đnags ra là dùng let. Cơ mà dùng let thifkhong dùng đc biến đó ở trong funtion khác
